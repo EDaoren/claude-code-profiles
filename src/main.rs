@@ -235,7 +235,7 @@ impl ConfigManagerApp {
         // 创建默认的 settings.json 文件
         let settings_path = self.config_dir.join(ACTIVE_CONFIG_NAME);
         if !settings_path.exists() {
-            let default_content = "{\n  \"description\": \"默认 Claude 配置\"\n}";
+            let default_content = "{\n\t\"env\": {\n\t\t\"ANTHROPIC_AUTH_TOKEN\": \"1234\",\n\t\t\"ANTHROPIC_BASE_URL\": \"http://127.0.0.1:3456\"\n\t}\n}";
             if let Err(e) = fs::write(&settings_path, default_content) {
                 self.show_toast(format!("创建默认 settings.json 时出错: {}", e), ToastKind::Error);
             }
