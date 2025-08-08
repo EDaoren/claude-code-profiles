@@ -456,7 +456,8 @@ impl ConfigManagerApp {
             new_path = self.config_dir.join(format!("新配置_{}.json", i));
             i += 1;
         }
-        match fs::write(&new_path, "{\n\t\"description\": \"这是一个新配置\"\n}") {
+
+        match fs::write(&new_path, "{\n\t\"env\": {\n\t\t\"ANTHROPIC_AUTH_TOKEN\": \"1234\",\n\t\t\"ANTHROPIC_BASE_URL\": \"http://127.0.0.1:3456\"\n\t}\n}") {
             Ok(_) => {
                 let file_name = new_path.file_name().unwrap().to_str().unwrap().to_string();
                 self.show_toast(format!("已创建新文件: {}", file_name), ToastKind::Success);
